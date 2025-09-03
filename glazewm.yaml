@@ -1,29 +1,21 @@
 general:
   startup_commands: ['shell-exec zebar']
   shutdown_commands: ['shell-exec taskkill /IM zebar.exe /F']
-  config_reload_commands: []
-  focus_follows_cursor: false
-  toggle_workspace_on_refocus: false
-  cursor_jump: { enabled: true, trigger: 'monitor_focus' }
-  hide_method: 'cloak'
-  show_all_in_taskbar: false
 
 gaps:
-  scale_with_dpi: true
   inner_gap: '15px'
-  outer_gap: { top: '25px', right: '15px', bottom: '15px', left: '15px' }
+  outer_gap: { top: '15px', right: '15px', bottom: '15px', left: '15px' }
 
 window_effects:
   focused_window:
+    hide_title_bar:
+      enabled: true
     border: { enabled: true, color: '#DBB1E1' }
-    hide_title_bar: { enabled: false }
-    corner_style: { enabled: false, style: 'square' }
     transparency: { enabled: true, opacity: '90%' }
 
   other_windows:
-    border: { enabled: true, color: '#a1a1a1' }
-    hide_title_bar: { enabled: false }
-    corner_style: { enabled: false, style: 'square' }
+    hide_title_bar:
+      enabled: true
     transparency: { enabled: true, opacity: '90%' }
 
 window_behavior:
@@ -31,8 +23,6 @@ window_behavior:
   state_defaults:
     floating: { centered: true, shown_on_top: false }
     fullscreen: { maximized: false, shown_on_top: false }
-
-workspaces: [{name: '1'}, {name: '2'}, {name: '3'}, {name: '4'}, {name: '5'}, {name: '6'}, {name: '7'}, {name: '8'}, {name: '9'}]
 
 window_rules:
   - commands: ['ignore']
@@ -98,21 +88,13 @@ keybindings:
   - { commands: ['wm-redraw'], bindings: ['alt+shift+w'] }
   - { commands: ['shell-exec cmd'], bindings: ['alt+enter'] }
 
-  # Workspace focus
-  - { commands: ['focus --next-active-workspace'], bindings: ['alt+s'] }
-  - { commands: ['focus --prev-active-workspace'], bindings: ['alt+a'] }
-  - { commands: ['focus --recent-workspace'], bindings: ['alt+d'] }
-
-  # Focus by workspace (1–9)
-{% raw %}
-{% for i in range(1,10) %}
-  - { commands: ['focus --workspace {{i}}'], bindings: ['alt+{{i}}'] }
-  - { commands: ['move --workspace {{i}}', 'focus --workspace {{i}}'], bindings: ['alt+shift+{{i}}'] }
-{% endfor %}
-{% endraw %}
-
-  # Move workspace
-  - { commands: ['move-workspace --direction left'], bindings: ['alt+shift+a'] }
-  - { commands: ['move-workspace --direction right'], bindings: ['alt+shift+f'] }
-  - { commands: ['move-workspace --direction up'], bindings: ['alt+shift+d'] }
-  - { commands: ['move-workspace --direction down'], bindings: ['alt+shift+s'] }
+workspaces:
+  - name: "1"
+  - name: "2"
+  - name: "3"
+  - name: "4"
+  - name: "5"
+  - name: "6"
+  - name: "7"
+  - name: "8"
+  - name: "9"
