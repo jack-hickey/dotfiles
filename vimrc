@@ -1,7 +1,9 @@
+syntax off
+
 let g:netrw_keepdir=0
 command! Repos Explore $USERPROFILE\source\repos
 
-autocmd BufWritePost *.css,*.js call system(expand('%:e')=='css'?'csso '.shellescape(expand('%')).' -o '.shellescape(expand('%:r').'.min.css'):'terser '.shellescape(expand('%')).' -o '.shellescape(expand('%:r').'.min.js').' -c -m')
+autocmd BufWritePost *.css,*.js let cmd=expand('%:e')=='css'?'csso '.shellescape(expand('%')).' -o '.shellescape(expand('%:r').'.min.css'):'terser '.shellescape(expand('%')).' -o '.shellescape(expand('%:r').'.min.js').' -c -m' | let out=system(cmd) | if v:shell_error | echohl ErrorMsg | echom out | echohl None | endif
 
 set number
 set relativenumber
@@ -10,3 +12,4 @@ set tabstop=2
 set smartindent
 set ignorecase
 set smartcase
+set lazyredraw
