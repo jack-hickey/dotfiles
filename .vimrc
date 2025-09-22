@@ -14,3 +14,7 @@ set tabstop=2
 set smartindent
 set smartcase
 set lazyredraw
+
+set laststatus=2
+set statusline=%t
+set shortmess+=F
