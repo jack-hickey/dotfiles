@@ -13,6 +13,9 @@ let g:netrw_keepdir = 0       " Source control is infuriating without this
 " Open repositories folder
 command! Repos Explore $HOME/repos
 
+" Push to git
+command! -nargs=+ Push execute 'silent !git add .' | execute 'silent !git commit -a -m "' . <q-args> . '"' | execute 'silent !git push'
+
 " ------------------------------
 " CSS & JS minification on save
 " ------------------------------
