@@ -8,6 +8,7 @@ set relativenumber            " Show relative line numbers
 set shiftwidth=2              " Number of spaces for indentation
 set tabstop=2                 " Number of spaces for a tab
 set smartindent               " Enable smart indentation
+let g:netrw_keepdir = 0       " Source control is infuriating without this
 
 " Open repositories folder
 command! Repos Explore $HOME/repos
