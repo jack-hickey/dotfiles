@@ -9,11 +9,6 @@ set shiftwidth=2              " Number of spaces for indentation
 set tabstop=2                 " Number of spaces for a tab
 set smartindent               " Enable smart indentation
 
-" ------------------------------
-" Netrw & custom commands
-" ------------------------------
-let g:netrw_keepdir = 0       " Don't keep directory in netrw
-
 " Open repositories folder
 command! Repos Explore $HOME/repos
 
