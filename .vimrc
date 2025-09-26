@@ -1,12 +1,55 @@
-syntax off
+" ------------------------------
+" Basic settings
+" ------------------------------
+syntax off                    " Turn off syntax highlighting
 
-let g:netrw_keepdir=0
+set ic                        " Ignore case in searches
+set relativenumber            " Show relative line numbers
+set shiftwidth=2              " Number of spaces for indentation
+set tabstop=2                 " Number of spaces for a tab
+set smartindent               " Enable smart indentation
+
+" ------------------------------
+" Netrw & custom commands
+" ------------------------------
+let g:netrw_keepdir = 0       " Don't keep directory in netrw
+
+" Open repositories folder
 command! Repos Explore $HOME/repos
 
-autocmd BufWritePost *.css,*.js let cmd=expand('%:e')=='css'?'csso '.shellescape(expand('%')).' -o '.shellescape(expand('%:r').'.min.css'):'terser '.shellescape(expand('%')).' -o '.shellescape(expand('%:r').'.min.js').' -c -m' | let out=system(cmd) | if v:shell_error | echohl ErrorMsg | echom out | echohl None | endif
+" ------------------------------
+" CSS & JS minification on save
+" ------------------------------
+autocmd BufWritePost *.css,*.js call s:minify_css_js()
 
-set ic
-set relativenumber
-set shiftwidth=2
-set tabstop=2
-set smartindent
+function! s:minify_css_js() abort
+  let l:file = expand('%')
+  let l:outfile = expand('%:r')
+  if expand('%:e') ==# 'css'
+    let l:cmd = 'csso ' . shellescape(l:file) . ' -o ' . shellescape(l:outfile . '.min.css')
+  else
+    let l:cmd = 'uglifyjs ' . shellescape(l:file) . ' -o ' . shellescape(l:outfile . '.min.js') . ' -c -m'
+  endif
+  let l:out = system(l:cmd)
+  if v:shell_error
+    echohl ErrorMsg
+    echom l:out
+    echohl None
+  endif
+endfunction
+
+" ------------------------------
+" HTML minification before saving
+" ------------------------------
+augroup html_minify
+  autocmd!
+  autocmd BufWritePre *.html execute ':%!html-minifier --collapse-whitespace --remove-comments --minify-css true --minify-js true'
+augroup END
+
+" ------------------------------
+" HTML prettify after reading
+" ------------------------------
+augroup html_prettify
+  autocmd!
+  autocmd BufReadPost *.html silent! keepjumps %!prettier --parser html
+augroup END
