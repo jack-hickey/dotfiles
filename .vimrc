@@ -1,3 +1,27 @@
+" ================================================
+" Vim Configuration Dependencies
+" ================================================
+" This Vim setup depends on the following external tools:
+"
+" 1. Git
+"    - Used in the custom :Push command to add, commit, and push changes.
+"
+" 2. csso
+"    - Command-line CSS minifier used for *.css files.
+"    - Install via npm: npm install -g csso
+"
+" 3. uglify-js
+"    - Command-line JS minifier used for *.js files.
+"    - Install via npm: npm install -g uglify-js
+"
+" 4. html-minifier
+"    - Command-line HTML minifier used in BufWritePre autocmd for *.html files.
+"    - Install via npm: npm install -g html-minifier
+"
+" 5. prettier
+"    - Command-line code formatter used for HTML files.
+"    - Install via npm: npm install -g prettier
+
 " ================================
 " Basic Settings
 " ================================
