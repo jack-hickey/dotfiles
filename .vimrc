@@ -72,5 +72,5 @@ augroup END
 
 augroup html_prettify
   autocmd!
-  autocmd BufReadPost *.html silent! keepjumps %!prettier --parser html
+  autocmd BufReadPost,BufWritePre *.html silent! keepjumps %!prettier --parser html --tab-width 2 --html-whitespace-sensitivity ignore
 augroup END
