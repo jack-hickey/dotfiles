@@ -38,6 +38,7 @@ set autoread                  " Auto reload files when changed externally
 " File Explorer (netrw)
 " ================================
 let g:netrw_keepdir = 0       " Prevent netrw from changing CWD (helps with Git)
+let g:netrw_banner = 0        " Hide the header
 
 " ================================
 " Ignore Files in Completion/Navigation
@@ -90,11 +91,22 @@ endfunction
 " ================================
 augroup html_minify
   autocmd!
-  autocmd BufWritePre *.html execute
-        \ ':%!html-minifier --collapse-whitespace --remove-comments --minify-css true --minify-js true'
+  autocmd BufWritePre *.html call s:html_minify()
 augroup END
 
 augroup html_prettify
   autocmd!
-  autocmd BufReadPost,BufWritePre *.html silent! keepjumps %!prettier --parser html --tab-width 2 --html-whitespace-sensitivity ignore
+  autocmd BufReadPost,BufWritePre *.html call s:html_prettify()
 augroup END
+
+function! s:html_minify() abort
+  let l:pos = getpos('.')
+  silent! execute ':%!html-minifier --collapse-whitespace --remove-comments --minify-css true --minify-js true'
+  call setpos('.', l:pos)
+endfunction
+
+function! s:html_prettify() abort
+  let l:pos = getpos('.')
+  silent! execute 'keepjumps keepmarks %!prettier --parser html --tab-width 2 --html-whitespace-sensitivity ignore'
+  call setpos('.', l:pos)
+endfunction
